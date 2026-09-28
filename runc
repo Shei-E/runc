@@ -1,0 +1,33 @@
+#!/bin/bash
+
+PROGRAM="$1"
+DUD="$2"
+COMPILED="${PROGRAM}-compiled"
+DIR="/home/shusukeinoue1935/c-scripts"
+
+if [ -z "${PROGRAM}" ]; then
+    echo -e "\033[1;31merror\033[0m: please enter an argument"
+    exit 1
+elif [ -n "${DUD}" ]; then
+    echo -e "\033[1;31merror\033[0m: do not enter more than one argument"
+    exit 2
+fi
+
+
+
+if [ -f ${DIR}/${PROGRAM} ]; then
+    echo -e "\033[90mfile ${PROGRAM} is already in 'c-scripts'"   
+else
+    echo -e "\033[90mmoving file to 'c-scripts'"
+    mv ${PROGRAM} ~/"c-scripts"
+    echo "!! --> please make sure future edits are saved to 'c-scripts'"
+    echo "changing directory to 'c-scripts'" 
+    cd ~/"c-scripts" 
+fi &&
+    
+echo "compiling ${PROGRAM}" &&
+gcc ${PROGRAM} -o ${COMPILED} &&
+
+echo "running..." &&
+echo -e "\033[0m" &&
+./${COMPILED}
